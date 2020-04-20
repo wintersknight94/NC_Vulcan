@@ -95,7 +95,7 @@ minetest.register_node(modname .. ":basalt", {
 --Vulcanize Stone--
 nodecore.register_abm({
 		label = "Vulcanize Stone",
-		nodenames = {"group:rock"},
+		nodenames = {"group:rock", "group:gravel"},
 		neighbors = {"nc_terrain:lava_source", "nc_terrain:lava_flowing"},
 		interval = 4,
 		chance = 2,

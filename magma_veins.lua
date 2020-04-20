@@ -10,14 +10,13 @@ local c_lava = minetest.get_content_id("nc_terrain:lava_source")
 
 local c_volcanic = minetest.get_content_id(modname ..":tuff_hot")
 
-local c_stones = {}
-for k in pairs(minetest.registered_nodes) do
-  if minetest.get_item_group(k, "stone") > 0 then
-    c_stones[minetest.get_content_id(k)] = true
-  end
-end
+----- -----
+local c_stone = minetest.get_content_id("nc_terrain:stone")
+local c_lodestone = minetest.get_content_id("nc_lode:stone")
+local c_hardstone = minetest.get_content_id("nc_terrain:hard_stone_1")
+local c_hardlodestone = minetest.get_content_id("nc_lode:stone_1")
+----- -----
 
-------------------------------------------------------------------------
 local is_adjacent_to_air = function(area, data, x, y, z)
 	return (data[area:index(x+1, y, z)] == c_air
 		or data[area:index(x-1, y, z)] == c_air
@@ -44,7 +43,7 @@ minetest.register_ore({
 	column_height_min = 2,
 	column_height_max = 6,
 	y_min = -31000,
-	y_max = 20,
+	y_max = 200,
 	noise_threshold = 0.9,
 	noise_params = {
 		offset = 0,
@@ -77,7 +76,7 @@ remove_unsupported_lava = function(area, data, vi, x, y, z)
 	end
 end
 
--- Placing Hot Volcanic Tuff around Magma Conduits at Worldgen, hopefully will reduce abm bogging.
+-- Placing Hot Volcanic Tuff around Magma Conduits upon Worldgen, hopefully will reduce abm bogging.
 local vulcanize = function(area, data, vi, x, y, z, minp, maxp)
 	if data[vi] == c_lava then
 		for pi in area:iter(math.max(x-1, minp.x), math.max(y-1, minp.y), math.max(z-1, minp.z),
@@ -85,12 +84,15 @@ local vulcanize = function(area, data, vi, x, y, z, minp, maxp)
 			if data[pi] == c_stone then
 				data[pi] = c_volcanic
 			end
---			if data[pi] == c_lodestone then
---				data[pi] = c_volcanic
---			end
---			if data[pi] == c_hardstone then
---				data[pi] = c_volcanic
---			end
+			if data[pi] == c_lodestone then
+				data[pi] = c_volcanic
+			end
+			if data[pi] == c_hardstone then
+				data[pi] = c_volcanic
+			end
+			if data[pi] == c_hardlodestone then
+				data[pi] = c_volcanic
+			end
 		end
 	end
 end
