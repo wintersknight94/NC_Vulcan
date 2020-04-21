@@ -43,7 +43,7 @@ minetest.register_ore({
 	column_height_min = 2,
 	column_height_max = 6,
 	y_min = -31000,
-	y_max = 200,
+	y_max = -80,
 	noise_threshold = 0.9,
 	noise_params = {
 		offset = 0,
