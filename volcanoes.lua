@@ -12,19 +12,19 @@ local modname = minetest.get_current_modname()
 local modpath = minetest.get_modpath(minetest.get_current_modname())
 --dofile(modpath .. "/volcano_lava.lua") -- https://github.com/minetest/minetest/issues/7864, https://github.com/minetest/minetest/issues/7878
 
-local depth_root = -3000
-local depth_base = -50 -- point where the mountain root starts expanding
-local depth_maxwidth = -30 -- point of maximum width
+local depth_root = -720
+local depth_base = -50		-- point where the mountain root starts expanding
+local depth_maxwidth = -30	-- point of maximum width
 
-local radius_vent = 3 -- approximate minimum radius of vent - noise adds a lot to this
-local radius_lining = 5 -- the difference between this and the vent radius is about how thick the layer of lining nodes is, though noise will affect it
-local caldera_min = 5 -- minimum radius of caldera
-local caldera_max = 20 -- maximum radius of caldera
+local radius_vent = 1		-- approximate minimum radius of vent - noise adds a lot to this
+local radius_lining = 1		-- the difference between this and the vent radius is about how thick the layer of lining nodes is, though noise will affect it
+local caldera_min = 2		-- minimum radius of caldera
+local caldera_max = 20		-- maximum radius of caldera
 
-local carbon_line = 120 -- above this elevation carbon is added to the stone
-local carbon_border = 15 -- transitional zone where there's scorched soil
+local carbon_line = 60		-- above this elevation carbon is added to the stone
+local carbon_border = 20		-- transitional zone where there's scorched soil
 
-local depth_maxpeak = 200
+local depth_maxpeak = 120
 local depth_minpeak = 20
 local slope_min = 0.75
 local slope_max = 1.5
@@ -37,8 +37,8 @@ local magma_chambers_enabled = true
 local chamber_radius_multiplier = 0.5
 
 local p_active = 0.3
-local p_dormant = 0.15
-local p_extinct = 0.15
+local p_dormant = 0.3
+local p_extinct = 0.3
 
 if p_active + p_dormant + p_extinct > 1.0 then
 	minetest.log("error", "[nc_vulcan] probabilities of various volcano types adds up to more than 1")
@@ -52,8 +52,8 @@ local c_air = minetest.get_content_id("air")
 local c_lava = minetest.get_content_id("nc_terrain:lava_source") -- https://github.com/minetest/minetest/issues/7864
 local c_water = minetest.get_content_id("nc_terrain:water_source")
 
-local c_lining = minetest.get_content_id(modname .. ":tuff")
-local c_hot_lining = minetest.get_content_id(modname .. ":tuff_hot")
+local c_lining = minetest.get_content_id("nc_terrain:hard_stone_4")
+--local c_hot_lining = minetest.get_content_id(modname .. ":basalt")
 
 local c_cone = minetest.get_content_id("nc_terrain:stone")
 --if minetest.get_mapgen_setting("mg_name") == "v7" then
@@ -65,10 +65,10 @@ local c_cone = minetest.get_content_id("nc_terrain:stone")
 local c_ash = minetest.get_content_id("nc_fire:ash")
 local c_coalash = minetest.get_content_id("nc_fire:coal1")
 local c_soil = minetest.get_content_id("nc_terrain:dirt")
-local c_ashdirt = minetest.get_content_id(modname .. ":dirt_ashy")
+local c_igneous = minetest.get_content_id("nc_igneous:pumice")
 local c_sand = minetest.get_content_id("nc_terrain:sand")
 local c_underwater_soil = c_sand
-local c_plug = minetest.get_content_id(modname .. ":tuff")
+local c_plug = minetest.get_content_id("nc_terrain:hard_stone_5")
 
 local water_level = tonumber(minetest.get_mapgen_setting("water_level"))
 local mapgen_seed = tonumber(minetest.get_mapgen_setting("seed"))
@@ -230,26 +230,26 @@ minetest.register_on_generated(function(minp, maxp, seed)
 			elseif y < carbon_line and biome_data ~= nil then
 				c_top = biome_data.c_top
 				c_filler = biome_data.c_filler
-				c_dust = biome_data.c_dust
+				c_dust = c_air
 			elseif y < carbon_line + carbon_border then
-				c_top = c_ashdirt
-				c_filler = c_soil
-				c_dust = c_ash
+				c_top = c_igneous
+				c_filler = c_coalash
+				c_dust = c_air
 			else
 				c_top = c_coalash
-				c_filler = c_coalash
+				c_filler = c_igneous
 				c_dust = c_ash
 			end
 		else
 			c_top = c_ash
-			c_filler = c_ash
+			c_filler = c_igneous
 		end
 		
 		local pipestuff
 		local liningstuff
 		if y < depth_lava + math.random() * 1.1 then
 			pipestuff = c_lava
-			liningstuff = c_hot_lining
+			liningstuff = c_lining
 		else
 			if state < state_dormant then
 				pipestuff = c_plug -- dormant volcano

@@ -8,7 +8,8 @@ local water_level = tonumber(minetest.get_mapgen_setting("water_level"))
 local c_air = minetest.get_content_id("air")
 local c_lava = minetest.get_content_id("nc_terrain:lava_source")
 
-local c_volcanic = minetest.get_content_id(modname ..":tuff_hot")
+local c_volcanic = minetest.get_content_id("nc_terrain:hard_stone_4")
+local c_igneous = minetest.get_content_id("nc_igneous:pumice")
 
 ----- -----
 local c_stone = minetest.get_content_id("nc_terrain:stone")
@@ -42,12 +43,12 @@ minetest.register_ore({
 	},
 	column_height_min = 2,
 	column_height_max = 6,
-	y_min = -31000,
+	y_min = -720,
 	y_max = -80,
 	noise_threshold = 0.9,
 	noise_params = {
 		offset = 0,
-		scale = 3,
+		scale = 2,
 		spread = {x = 400, y = 800, z = 400},
 		seed = 25391,
 		octaves = 4,
@@ -76,7 +77,7 @@ remove_unsupported_lava = function(area, data, vi, x, y, z)
 	end
 end
 
--- Placing Hot Volcanic Tuff around Magma Conduits upon Worldgen, hopefully will reduce abm bogging.
+-- Placing Basalt around Magma Conduits upon Worldgen, hopefully will reduce abm bogging.
 local vulcanize = function(area, data, vi, x, y, z, minp, maxp)
 	if data[vi] == c_lava then
 		for pi in area:iter(math.max(x-1, minp.x), math.max(y-1, minp.y), math.max(z-1, minp.z),
