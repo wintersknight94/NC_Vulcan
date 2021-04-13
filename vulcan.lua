@@ -13,8 +13,8 @@ nodecore.register_abm({
 		label = "Vulcanize Soil",
 		nodenames = {"group:soil"},
 		neighbors = {"nc_terrain:lava_source", "nc_terrain:lava_flowing"},
-		interval = 10,
-		chance = 1,
+		interval = 20,
+		chance = 2,
 		action = function(pos)
 			nodecore.set_loud(pos, {name = "nc_concrete:adobe"})
 		end
@@ -25,8 +25,8 @@ nodecore.register_abm({
 		label = "Vulcanize Sand",
 		nodenames = {"group:sand"},
 		neighbors = {"nc_terrain:lava_source", "nc_terrain:lava_flowing"},
-		interval = 10,
-		chance = 1,
+		interval = 20,
+		chance = 2,
 		action = function(pos)
 			nodecore.set_loud(pos, {name = "nc_concrete:sandstone"})
 		end
@@ -50,7 +50,7 @@ nodecore.register_abm({
 		nodenames = {"nc_tree:tree","nc_tree:root","nc_fire:coal8","group:mossy"},
 		neighbors = {"nc_terrain:lava_source", "nc_terrain:lava_flowing"},
 		interval = 10,
-		chance = 1,
+		chance = 2,
 		action = function(pos)
 			nodecore.set_loud(pos, {name = "nc_concrete:coalstone"})
 		end
