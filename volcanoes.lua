@@ -68,7 +68,7 @@ local c_soil = minetest.get_content_id("nc_terrain:dirt")
 local c_igneous = minetest.get_content_id("nc_igneous:pumice")
 local c_sand = minetest.get_content_id("nc_terrain:sand")
 local c_underwater_soil = c_sand
-local c_plug = minetest.get_content_id("nc_terrain:hard_stone_5")
+local c_plug = minetest.get_content_id("nc_terrain:hard_stone_4")
 
 local water_level = tonumber(minetest.get_mapgen_setting("water_level"))
 local mapgen_seed = tonumber(minetest.get_mapgen_setting("seed"))
