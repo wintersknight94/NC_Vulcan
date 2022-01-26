@@ -13,3 +13,5 @@ include("voxelarea_iterator")
 include("magma_veins")
 
 include("volcanoes")
+
+include("hydrothermal_vents")
