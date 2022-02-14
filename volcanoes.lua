@@ -13,13 +13,13 @@ local modpath = minetest.get_modpath(minetest.get_current_modname())
 --dofile(modpath .. "/volcano_lava.lua") -- https://github.com/minetest/minetest/issues/7864, https://github.com/minetest/minetest/issues/7878
 
 local depth_root = -720
-local depth_base = -50		-- point where the mountain root starts expanding
-local depth_maxwidth = -30	-- point of maximum width
+local depth_base = -40		-- point where the mountain root starts expanding
+local depth_maxwidth = -10	-- point of maximum width
 
 local radius_vent = 1		-- approximate minimum radius of vent - noise adds a lot to this
-local radius_lining = 1		-- the difference between this and the vent radius is about how thick the layer of lining nodes is, though noise will affect it
+local radius_lining = 3		-- the difference between this and the vent radius is about how thick the layer of lining nodes is, though noise will affect it
 local caldera_min = 2		-- minimum radius of caldera
-local caldera_max = 20		-- maximum radius of caldera
+local caldera_max = 32		-- maximum radius of caldera
 
 local carbon_line = 60		-- above this elevation carbon is added to the stone
 local carbon_border = 20		-- transitional zone where there's scorched soil
